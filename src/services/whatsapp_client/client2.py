@@ -1,6 +1,5 @@
+import json, message, os
 from flask import Flask, request
-import json
-import message, os
 from google.cloud import pubsub_v1
 from urllib.parse import unquote
 
@@ -33,7 +32,7 @@ def sendMessage():
     # print(future.result())
     return json.dumps(obj.__dict__)
 
-@app.route('/receive', methods=['GET'])
+@app.route('/receive', methods=['GET','POST'])
 def receiveMessage():
     response = request.get_data()
     response = response.decode("utf-8").split("&")
@@ -46,7 +45,7 @@ def receiveMessage():
         return "A file format message has been sent which can't be shown here"
     print("Message from ID: " + srcID + " = " + response)
     return "Message from ID: " + srcID + " = " + response
- 
+
 # main driver function
 if __name__ == '__main__':
-    app.run(host="0.0.0.0",port=5000)
+    app.run(host="0.0.0.0",port=8084)

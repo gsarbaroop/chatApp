@@ -11,14 +11,7 @@ dataBase = mysql.connector.connect(
   user ="root",
   passwd ="password",
   database = "users"
-)
-
-# db_user = dataBase.get('user')
-# db_pwd = dataBase.get('passwd')
-# db_host = dataBase.get('host')
-# db_port = dataBase.get('port')
-# db_name = dataBase.get('database')
- 
+) 
 
 
 @app.route('/user', methods=['GET'])
@@ -55,4 +48,4 @@ def storeUserDetails():
  
 # main driver function
 if __name__ == '__main__':
-    app.run()
+    app.run(host="0.0.0.0",port=5005)
