@@ -1,7 +1,7 @@
 import json, message, os
 from flask import Flask, request
 from google.cloud import pubsub_v1
-from urllib.parse import unquote
+from urllib.parse  import unquote
 
 os.environ["GCLOUD_PROJECT"] = "uplifted-woods-362215"
 
@@ -17,19 +17,18 @@ def sendMessage():
     userid = request.form['userID']
     send_to_id = request.form['send_to_ID']
     obj = message.Message(userid, messageText, send_to_id)
-    publisher = pubsub_v1.PublisherClient()
-    topic_path = publisher.topic_path("uplifted-woods-362215", "m21aie253-sdb")
     
     # Data must be a bytestring
     data = {"userID" : userid, "message" : messageText, "send_to_ID" : send_to_id}
     data = json.dumps(data)
     data = data.encode("utf-8")
 
-    # When you publish a message, the client returns a future.
+    # Publisher code
+    publisher = pubsub_v1.PublisherClient()
+    topic_path = publisher.topic_path("uplifted-woods-362215", "m21aie253-sdb")
     print("Publishing to publisher")
     future = publisher.publish(topic_path, data)
     print("Message to ID: " + send_to_id + " = " + messageText)
-    # print(future.result())
     return json.dumps(obj.__dict__)
 
 @app.route('/receive', methods=['GET','POST'])
@@ -48,4 +47,4 @@ def receiveMessage():
 
 # main driver function
 if __name__ == '__main__':
-    app.run(host="0.0.0.0",port=8084)
+    app.run(host="0.0.0.0",port=8083)

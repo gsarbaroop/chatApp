@@ -14,24 +14,6 @@ app = Flask(__name__)
 bucket_name = "bucketz-for-webapp"
 
 
-# def list_blobs(bucket_name):
-#         storage_client = storage.Client()
-
-#         blobs = storage_client.list_blobs(bucket_name)
-
-#         for blob in blobs:
-#                 print(blob.name)
-
-
-# def read(bucket_name, blob_name):
-#         storage_client = storage.Client()
-#         bucket = storage_client.bucket(bucket_name)
-#         blob = bucket.blob(blob_name)
-
-#         with blob.open("r") as f:
-#                 print(f.read())
-
-
 @app.route('/store', methods=['GET','POST'])
 def write_read():
         data = request.get_data()
@@ -61,9 +43,6 @@ def write_read():
         #         d.upload_from_string(message)
         return "uploaded"
 
-# write_read("bucketz-for-webapp", "../../resources/media/IMG-20230902-WA0008.jpg")
-# list_blobs("bucketz-for-webapp")
-# read("bucketz-for-webapp","bucketz-for-webapp/IMG-20230902-WA0008.jpg")
 
 # main driver function
 if __name__ == '__main__':
